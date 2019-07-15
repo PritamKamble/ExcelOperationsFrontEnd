@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="mx-auto">
+    <div class="row">
+      <div class="col">
+        <input type="file" (change)="incomingfile($event)" accept=".xlsx">
+      </div>
+      <div class="col">
+        <button class="btn btn-primary" type="button" (click)="Upload()">Upload</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="content mt-3" *ngIf="filesOnServer.length!==0">
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card" id="table">
+            <div class="card-header">
+              <strong class="card-title">Files uploaded</strong>
+              <button class="btn btn-primary float-right" type="button" hidden>Does Nothing</button>
+            </div>
+            <div class="card-body">
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">File Name</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of filesOnServer">
+                    <th scope="row"></th>
+                    <td>{{item.excelFile.split('Z')[1]}}</td>
+                    <td><button class="btn btn-warning" type="button" hidden>Edit</button>
+                    </td>
+                    <td> <button class="btn btn-danger" type="button" (click)="deleteFileAndData(item._id)">Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-12">
 
-          <div class="card" id="table">
+          <div class="card" id="empTable">
             <div class="card-header">
               <strong class="card-title">Employees Table</strong>
               <button class="btn btn-primary float-right" type="button">Does Nothing</button>
@@ -18,20 +18,22 @@
                     <th scope="col">Employee Name</th>
                     <th scope="col">Last Name</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Status</th>
                     <th></th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let emp of employees;  let i = index">
                   <tr>
-                    <th scope="row">{{emp.emp_code}}</th>
-                    <td>{{emp.mng_code}}</td>
-                    <td>{{emp.empName}}</td>
-                    <td>{{emp.empLastName}}</td>
-                    <td>{{emp.empEmail}}</td>
-                    <td><button class="btn btn-warning" type="button">Edit</button>
+                    <th scope="row" id=emp_code contentEditable>{{emp.emp_code}}</th>
+                    <td id=mng_code contentEditable>{{emp.mng_code}}</td>
+                    <td id=empName contentEditable>{{emp.empName}}</td>
+                    <td id=empLastName contentEditable>{{emp.empLastName}}</td>
+                    <td id=empEmail contentEditable>{{emp.empEmail}}</td>
+                    <td id=empStatus contentEditable>{{emp.empStatus}}</td>
+                    <td><button class="btn btn-warning" type="button" (click)="editEmpContent(i, $event)">Edit</button>
                     </td>
-                    <td> <button class="btn btn-danger" type="button">Delete</button>
+                    <td> <button class="btn btn-danger" type="button" (click)="deleteEmpRow(i)">Delete</button>
                     </td>
                   </tr>
                 </tbody>
@@ -39,7 +41,7 @@
             </div>
           </div>
 
-          <div class="card" id="table">
+          <div class="card" id="mngTable">
             <div class="card-header">
               <strong class="card-title">Manager Table</strong>
               <button class="btn btn-primary float-right" type="button">Does Nothing</button>
@@ -48,25 +50,25 @@
               <table class="table">
                 <thead class="thead-dark">
                   <tr>
-                    <th scope="col">Employee Code</th>
+                    <th scope="col">Manager Code</th>
                     <th scope="col">Manager Name</th>
-                    <th scope="col">Employee Name</th>
-                    <th scope="col">Last Name</th>
+                    <th scope="col">Manager Last Name</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Status</th>
                     <th></th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let emp of managers;  let i = index">
                   <tr>
-                    <th scope="row">{{emp.emp_code}}</th>
-                    <td>{{emp.mngName}}</td>
-                    <td>{{emp.mngLastName}}</td>
-                    <td>{{emp.mngEmail}}</td>
-                    <td>{{emp.mngStatus}}</td>
-                    <td><button class="btn btn-warning" type="button">Edit</button>
+                    <th scope="row" contentEditable>{{emp.emp_code}}</th>
+                    <td contentEditable>{{emp.mngName}}</td>
+                    <td contentEditable>{{emp.mngLastName}}</td>
+                    <td contentEditable>{{emp.mngEmail}}</td>
+                    <td contentEditable>{{emp.mngStatus}}</td>
+                    <td><button class="btn btn-warning" type="button" (click)="editMngContent(i, $event)">Edit</button>
                     </td>
-                    <td> <button class="btn btn-danger" type="button">Delete</button>
+                    <td> <button class="btn btn-danger" type="button" (click)="deleteMngRow(i, emp.emp_code)">Delete</button>
                     </td>
                   </tr>
                 </tbody>

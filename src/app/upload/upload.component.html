@@ -35,7 +35,7 @@
                   <tr *ngFor="let item of filesOnServer">
                     <th scope="row"></th>
                     <td>{{item.excelFile.split('Z')[1]}}</td>
-                    <td><button class="btn btn-warning" type="button" hidden>Edit</button>
+                    <td><button class="btn btn-warning" type="button">Edit</button>
                     </td>
                     <td> <button class="btn btn-danger" type="button" (click)="deleteFileAndData(item._id)">Delete</button>
                     </td>

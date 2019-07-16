@@ -23,14 +23,9 @@ export class UploadComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    console.log('Inside oninit method');
     this.filesOnServer = [];
-
     this.httpService.getFileList().subscribe((res: Array<any>) => {
       if (res.length) {
-        console.log(res);
-        console.log(res[0].excelFile.split('Z')[1]);
         this.filesOnServer = res;
       }
     });
@@ -39,7 +34,6 @@ export class UploadComponent implements OnInit {
 
   incomingfile(event) {
     this.file = event.target.files[0];
-    console.log(this.file);
   }
 
   Upload() {
@@ -63,18 +57,16 @@ export class UploadComponent implements OnInit {
     formData.append('excelFile', this.file, this.file.name);
 
     this.httpService.sendExcelFile(formData).subscribe(response => {
-      console.log('response');
-
       this.router.navigate(['/preview/' + response._id], { relativeTo: this.route });
     });
   }
 
   deleteFileAndData (id) {
-    console.log(id);
     this.httpService.deleteFileAndData(id).subscribe(res => {
-      console.log(res);
       this.ngOnInit();
     });
   }
+
+
 
 }

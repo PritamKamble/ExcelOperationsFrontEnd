@@ -27,7 +27,6 @@ export class PreviewComponent implements OnInit {
 
   ngOnInit() {
     this.httpService.getExcelDataByID(this.id).subscribe((res: any) => {
-      console.log(res);
       this.response = res;
       this.employees = res.employees;
       this.managers = res.manager;
@@ -43,15 +42,59 @@ export class PreviewComponent implements OnInit {
       });
     }
     if (!save) {
-      console.log('Deleting file');
       this.httpService.deleteFileAndData(this.id).subscribe(res => {
-        console.log(res);
         this.employees = [];
         this.managers = [];
         this.router.navigate(['/upload']);
       });
     }
-
   }
 
+  editEmpContent(obj, event) {
+    let i = 0;
+    for (let key in this.response.employees[obj]) {
+      if (this.response.employees[obj].hasOwnProperty(key)) {
+        this.response.employees[obj][key] = event.target.parentNode.parentNode.childNodes[i].innerText;
+        i++;
+      }
+    }
+  }
+
+  editMngContent(obj, event) {
+    let i = 0;
+    for (let key in this.response.manager[obj]) {
+      if (this.response.manager[obj].hasOwnProperty(key)) {
+        if (i === 0) {
+          this.editEmpIDs(this.response.manager[obj][key], event.target.parentNode.parentNode.childNodes[i].innerText);
+        }
+        this.response.manager[obj][key] = event.target.parentNode.parentNode.childNodes[i].innerText;
+        i++;
+      }
+    }
+  }
+
+  editEmpIDs(originalValue, newValue) {
+    for (let i of this.response.employees) {
+      if (i.mng_code === originalValue) {
+        i.mng_code = newValue;
+      }
+    }
+  }
+
+  deleteEmpRow(obj) {
+    this.response.employees.splice(obj, 1);
+  }
+
+  deleteMngRow(obj, id) {
+    let flag = true;
+    for (const i of this.response.employees) {
+      if (i.mng_code === id) {
+        console.log('cannot delete');
+        flag = false;
+      }
+    }
+    if (flag) {
+      this.response.manager.splice(obj, 1);
+    }
+  }
 }
